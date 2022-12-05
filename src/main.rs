@@ -38,6 +38,49 @@ println!("The Elf with the most calories: {most_calories}");
 
 }
 
+fn day_two(){
+    println!("---------Day Two-----------");
+    const INPUT: &str = include_str!("day_2_input.txt");
+
+    let mut guide_entry: Vec<String> = Vec::new();
+    let mut score = 0;
+
+    for line in INPUT.lines() {
+        guide_entry.push(line.parse::<String>().unwrap());
+    }
+
+    //Rock (1) = A, X ; Paper(2) = B, Y ; Scissors (3)  = C, Z
+    // Lost = 0, Draw = 3, Win = 6 
+
+    for x in guide_entry{
+        let enemy = x.chars().next().unwrap();
+        let me = x.chars().nth(2).unwrap();
+
+        //Draw 
+        if enemy == 'A' && me == 'X' || enemy == 'B' && me == 'Y' || enemy == 'C' && me == 'Z'{
+            score += 3;
+        }
+        //Lose 
+        if enemy == 'A' && me == 'Z' || enemy == 'B' && me == 'X' || enemy == 'C' && me == 'Y'{
+            score += 0;
+        }
+        //Win
+        if enemy == 'A' && me == 'Y' || enemy == 'B' && me == 'Z' || enemy == 'C' && me == 'X'{
+            score += 6;
+        }
+
+        if me == 'X'  {
+            score += 1;
+        } else if me == 'Y'  {
+            score += 2;
+        } else {
+            score += 3;
+        }
+    }
+    println!("SCORE: {score}");
+}
+
 fn main() {
-    day_one()
+    day_one();
+    day_two();
 }
